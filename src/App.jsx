@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { UIProvider } from './context/UIContext';
 import { NotesProvider } from './context/NotesContext';
 import AppShell from './components/layout/AppShell';
@@ -10,7 +10,7 @@ import CanvasPage from './pages/CanvasPage';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <UIProvider>
         <NotesProvider>
           <AppShell>
@@ -24,7 +24,7 @@ function App() {
           </AppShell>
         </NotesProvider>
       </UIProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
