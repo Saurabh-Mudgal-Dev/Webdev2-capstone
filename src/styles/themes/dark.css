@@ -1,0 +1,18 @@
+/* src/styles/themes/dark.css */
+:root[data-theme="dark"] {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --surface: #21262d;
+  --surface-hover: #30363d;
+  
+  --text-primary: #e6edf3;
+  --text-secondary: #848d97;
+  --text-muted: #484f58;
+  
+  --border: #30363d;
+  --border-focus: #8b949e;
+  
+  /* We define RGB versions for glassmorphism */
+  --bg-secondary-rgb: 22, 27, 34;
+  --border-rgb: 48, 54, 61;
+}

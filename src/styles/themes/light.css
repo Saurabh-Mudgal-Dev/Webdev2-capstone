@@ -1,0 +1,21 @@
+/* src/styles/themes/light.css */
+:root[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f8fa;
+  --surface: #ffffff;
+  --surface-hover: #eaeef2;
+  
+  --text-primary: #1f2328;
+  --text-secondary: #656d76;
+  --text-muted: #8c959f;
+  
+  --border: #d0d7de;
+  --border-focus: #0969da;
+  
+  --accent: #0969da;
+  --accent-hover: #0349b4;
+  --accent-glow: rgba(9, 105, 218, 0.2);
+
+  --bg-secondary-rgb: 246, 248, 250;
+  --border-rgb: 208, 215, 222;
+}

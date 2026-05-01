@@ -1,0 +1,59 @@
+/* src/index.css */
+@import './styles/tokens.css';
+@import './styles/themes/dark.css';
+@import './styles/themes/light.css';
+@import './styles/reset.css';
+@import './styles/glass.css';
+@import './styles/animations.css';
+
+/* Custom styles for markdown preview */
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: var(--text-primary);
+  text-shadow: 0 0 8px rgba(255,255,255,0.2);
+}
+
+.markdown-preview p {
+  margin-bottom: 1em;
+  color: var(--text-secondary);
+}
+
+.markdown-preview a.wikilink {
+  color: var(--text-primary);
+  background: var(--surface-solid);
+  border: 1px solid var(--border-focus);
+  box-shadow: 0 0 8px var(--accent-glow);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.markdown-preview a.wikilink:hover {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 15px var(--accent-glow-strong);
+  transform: translateY(-1px);
+}
+
+/* Base body style to ensure transparency works over canvas */
+body {
+  background: transparent !important;
+}
+
+/* React Flow Handle Fixes */
+.react-flow__handle {
+  z-index: 100 !important;
+  pointer-events: all !important;
+}
+
+.react-flow__edge-path {
+  stroke: #00f2ff !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.5));
+}
