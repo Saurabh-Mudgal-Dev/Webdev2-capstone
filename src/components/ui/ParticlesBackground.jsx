@@ -10,6 +10,11 @@ export default function ParticlesBackground() {
     let animationFrameId;
     let particles = [];
 
+    // Detect theme
+    function getTheme() {
+      return document.documentElement.getAttribute('data-theme') || 'dark';
+    }
+
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -18,6 +23,13 @@ export default function ParticlesBackground() {
     window.addEventListener('resize', resize);
     resize();
 
+    // Watch for theme changes
+    const themeObserver = new MutationObserver(() => {
+      // Reinitialize particles with new theme colors
+      init();
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
@@ -25,9 +37,17 @@ export default function ParticlesBackground() {
         this.size = Math.random() * 1.5 + 0.5;
         this.speedX = Math.random() * 0.8 - 0.4;
         this.speedY = Math.random() * 0.8 - 0.4;
-        this.opacity = Math.random() * 0.4 + 0.1;
-        // Randomly pick between neon blue and neon red
-        this.color = Math.random() > 0.5 ? '0, 242, 255' : '255, 0, 85'; 
+
+        const theme = getTheme();
+        if (theme === 'light') {
+          this.opacity = Math.random() * 0.25 + 0.05;
+          // Soft violet and rose tones for light mode
+          this.color = Math.random() > 0.5 ? '109, 40, 217' : '225, 29, 114';
+        } else {
+          this.opacity = Math.random() * 0.4 + 0.1;
+          // Neon blue and neon red for dark mode
+          this.color = Math.random() > 0.5 ? '0, 242, 255' : '255, 0, 85';
+        }
       }
       update() {
         this.x += this.speedX;
@@ -68,7 +88,6 @@ export default function ParticlesBackground() {
           
           if (distance < 150) {
             ctx.beginPath();
-            // Average the colors for the line
             const r = (parseInt(particles[i].color.split(',')[0]) + parseInt(particles[j].color.split(',')[0])) / 2;
             const g = (parseInt(particles[i].color.split(',')[1]) + parseInt(particles[j].color.split(',')[1])) / 2;
             const b = (parseInt(particles[i].color.split(',')[2]) + parseInt(particles[j].color.split(',')[2])) / 2;
@@ -96,12 +115,15 @@ export default function ParticlesBackground() {
     return () => {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
+      themeObserver.disconnect();
     };
   }, []);
 
+  // Dynamic background based on theme via CSS
   return (
     <canvas
       ref={canvasRef}
+      className="particles-bg"
       style={{
         position: 'fixed',
         top: 0,
@@ -110,7 +132,6 @@ export default function ParticlesBackground() {
         height: '100%',
         zIndex: -1,
         pointerEvents: 'none',
-        background: 'radial-gradient(circle at 50% 50%, #050510 0%, #020205 100%)'
       }}
     />
   );

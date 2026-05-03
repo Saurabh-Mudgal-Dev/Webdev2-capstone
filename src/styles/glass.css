@@ -8,7 +8,7 @@
   position: relative;
 }
 
-/* Add a subtle top glow for extra "reddish" accent */
+/* Add a subtle top glow accent line */
 .glass-panel::after {
   content: '';
   position: absolute;
@@ -21,12 +21,16 @@
 }
 
 .glass-panel-heavy {
-  /* Using a deep purple tint for the heavy glass */
-  background: rgba(15, 8, 25, 0.85);
+  background: var(--surface-solid);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border);
   border-right: 1px solid var(--border-focus);
+}
+
+/* Light mode overrides for glass panels */
+:root[data-theme="light"] .glass-panel-heavy {
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .glow-text {
@@ -52,7 +56,7 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom Scrollbar for Cyber Look */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -70,4 +74,112 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-secondary);
   box-shadow: 0 0 10px var(--pink-glow);
+}
+
+/* Light mode scrollbar */
+:root[data-theme="light"] ::-webkit-scrollbar-track {
+  background: rgba(109, 40, 217, 0.04);
+}
+
+/* Button System — Simplified for Beginners */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 24px;
+  border-radius: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-solid {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-solid:hover {
+  background: var(--accent-glow-strong);
+  border-color: var(--accent);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-glow-strong);
+  transform: skewX(-10deg);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.btn-icon {
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+.btn-icon:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.btn-scan {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+  transform: skewX(-25deg);
+  transition: 0s;
+  pointer-events: none;
+}
+
+.btn:hover .btn-scan {
+  left: 200%;
+  transition: 0.8s;
+}
+
+/* Note Item System */
+.note-item {
+  padding: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: var(--text-secondary);
+  border-left: 3px solid transparent;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.note-item:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.note-item.active {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border-left-color: var(--accent);
 }

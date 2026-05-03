@@ -5,7 +5,9 @@ import {
   Background, 
   Controls,
   Handle,
-  Position
+  Position,
+  useNodesState,
+  useEdgesState
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { extractWikilinks } from '../../utils/wikilinkParser';
@@ -14,7 +16,6 @@ import { extractWikilinks } from '../../utils/wikilinkParser';
 const GraphNode = ({ data }) => {
   const radius = 10 + (data.linkCount * 2);
   const size = Math.min(radius * 2, 40);
-  const cyan = '#00f2ff';
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
@@ -36,8 +37,9 @@ const GraphNode = ({ data }) => {
         width: `${size}px`,
         height: `${size}px`,
         borderRadius: '50%',
-        background: cyan,
-        border: `1px solid rgba(255,255,255,0.3)`,
+        background: 'var(--accent)',
+        border: '1px solid var(--border-focus)',
+        boxShadow: 'var(--shadow-glow)',
         transition: 'all 0.3s ease',
         cursor: 'pointer',
         zIndex: 10
@@ -45,9 +47,9 @@ const GraphNode = ({ data }) => {
       <div style={{ 
         marginTop: '8px', 
         fontSize: '12px', 
-        color: '#e0f2ff', 
+        color: 'var(--text-primary)', 
         fontWeight: 'bold',
-        textShadow: '0 0 5px rgba(0,0,0,0.8)',
+        textShadow: 'none',
         whiteSpace: 'nowrap',
         pointerEvents: 'none'
       }}>
@@ -65,8 +67,24 @@ export default function GraphView(props) {
   const { notes, setActiveNoteId } = props;
   const [hoveredNodeId, setHoveredNodeId] = useState(null);
 
-  // 1. Calculate Nodes and Edges directly from props
-  const { nodes, edges } = useMemo(() => {
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+  // Load saved node positions from localStorage
+  const [savedNodes, setSavedNodes] = React.useState(() => {
+    const saved = localStorage.getItem('cognivault-graph-nodes');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Sync node positions to local storage
+  React.useEffect(() => {
+    if (nodes.length > 0) {
+      localStorage.setItem('cognivault-graph-nodes', JSON.stringify(nodes));
+    }
+  }, [nodes]);
+
+  // Calculate Nodes and Edges when notes or hover state changes
+  React.useEffect(() => {
     const nodesArr = [];
     const edgesArr = [];
     const centerX = 400;
@@ -74,7 +92,9 @@ export default function GraphView(props) {
     const radius = 250;
 
     if (!notes || notes.length === 0) {
-      return { nodes: [], edges: [] };
+      setNodes([]);
+      setEdges([]);
+      return;
     }
 
     // Create Nodes
@@ -119,10 +139,8 @@ export default function GraphView(props) {
             type: 'straight',
             animated: true,
             style: { 
-              stroke: '#00f2ff', 
               strokeWidth: isHovered ? 4 : 2, 
               opacity: isHovered ? 1 : 0.4,
-              filter: isHovered ? 'drop-shadow(0 0 8px #00f2ff)' : 'none'
             },
             zIndex: isHovered ? 10 : 1
           });
@@ -130,9 +148,20 @@ export default function GraphView(props) {
       });
     });
 
-    console.log("Graph View - Nodes:", nodesArr.length, "Edges:", edgesArr.length);
-    return { nodes: nodesArr, edges: edgesArr };
-  }, [notes, hoveredNodeId]);
+    setNodes((prevNodes) => {
+      return nodesArr.map(n => {
+        const prev = prevNodes.find(pn => pn.id === n.id);
+        const saved = savedNodes.find(sn => sn.id === n.id);
+        if (prev) {
+          return { ...n, position: prev.position };
+        } else if (saved) {
+          return { ...n, position: saved.position };
+        }
+        return n;
+      });
+    });
+    setEdges(edgesArr);
+  }, [notes, hoveredNodeId, setNodes, setEdges, savedNodes]);
 
   if (!notes || notes.length === 0) {
     return (
@@ -147,12 +176,14 @@ export default function GraphView(props) {
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         onNodeClick={(e, node) => setActiveNoteId(node.id)}
         onNodeMouseEnter={(e, node) => setHoveredNodeId(node.id)}
         onNodeMouseLeave={() => setHoveredNodeId(null)}
         nodeTypes={nodeTypes}
         fitView
-        colorMode="dark"
+        colorMode={props.theme}
       >
         <Controls />
       </ReactFlow>

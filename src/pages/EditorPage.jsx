@@ -17,7 +17,7 @@ export default function EditorPage(props) {
         {previewMode ? (
           <MarkdownPreview content={activeNote.content} />
         ) : (
-          <NoteEditor note={activeNote} updateNote={updateNote} />
+          <NoteEditor key={activeNote?.id} note={activeNote} updateNote={updateNote} />
         )}
       </div>
       

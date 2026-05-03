@@ -70,7 +70,7 @@ export default function CanvasView(props) {
         onNodeDragStop={onNodeDragStop}
         nodeTypes={nodeTypes}
         fitView
-        colorMode="dark"
+        colorMode={props.theme}
       >
         <Controls />
       </ReactFlow>

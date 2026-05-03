@@ -10,7 +10,7 @@ export default function GraphPage(props) {
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>A visual map of how your notes are connected via wikilinks.</p>
       </div>
       <div style={{ flex: 1, overflow: 'hidden' }}>
-        <GraphView notes={props.notes} setActiveNoteId={props.setActiveNoteId} />
+        <GraphView notes={props.notes} theme={props.theme} setActiveNoteId={props.setActiveNoteId} />
       </div>
     </div>
   );

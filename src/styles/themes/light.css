@@ -1,22 +1,46 @@
-/* src/styles/themes/light.css */
+/* src/styles/themes/light.css — "Frosted Lavender" Light Theme */
 :root[data-theme="light"] {
-  --bg-primary: #fcfaff;
-  --bg-secondary: #f3f0f7;
-  --surface: rgba(255, 255, 255, 0.8);
-  --surface-hover: rgba(240, 230, 250, 0.9);
-  --surface-solid: #ffffff;
-  
-  --text-primary: #2d1b4d;
-  --text-secondary: #6b4f9e;
-  --text-muted: #9a84bc;
-  
-  --border: rgba(255, 45, 155, 0.2);
-  --border-focus: rgba(255, 45, 155, 0.5);
-  
-  --accent: #ff2d9b;
-  --accent-hover: #ff6dbf;
-  --accent-glow: rgba(255, 45, 155, 0.1);
+  /* Warm cream-lavender base */
+  --bg-primary: #f8f5ff;
+  --bg-secondary: #efe8f8;
 
-  --bg-secondary-rgb: 243, 240, 247;
-  --border-rgb: 255, 45, 155;
+  /* Glass Surfaces — soft frosted translucency */
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-hover: rgba(235, 225, 250, 0.85);
+  --surface-solid: #ffffff;
+
+  /* Text — deep indigo readability */
+  --text-primary: #1e1338;
+  --text-secondary: #554080;
+  --text-muted: #9585b5;
+
+  /* ── Accent Palette — Vivid indigo + rose ── */
+  --accent: #6d28d9;            /* Deep violet primary */
+  --accent-secondary: #e11d72;  /* Rose secondary */
+  --accent-tertiary: #a855f7;   /* Lighter violet */
+
+  --accent-hover: #7c3aed;
+  --accent-glow: rgba(109, 40, 217, 0.12);
+  --accent-glow-strong: rgba(109, 40, 217, 0.28);
+
+  --pink-glow: rgba(225, 29, 114, 0.12);
+  --pink-glow-strong: rgba(225, 29, 114, 0.28);
+
+  /* Borders — subtle lavender separation */
+  --border: rgba(109, 40, 217, 0.12);
+  --border-focus: rgba(109, 40, 217, 0.35);
+
+  --error: #dc2626;
+  --success: #16a34a;
+
+  /* Shadows — soft and diffused, no harsh black */
+  --shadow-sm: 0 2px 8px rgba(109, 40, 217, 0.06);
+  --shadow-md: 0 4px 24px rgba(109, 40, 217, 0.08);
+  --shadow-glow: 0 0 12px var(--accent-glow);
+  --shadow-glow-strong: 0 0 24px var(--accent-glow-strong);
+  --shadow-violet: 0 0 16px rgba(168, 85, 247, 0.15);
+
+  /* RGB helper values */
+  --bg-secondary-rgb: 239, 232, 248;
+  --border-rgb: 109, 40, 217;
 }

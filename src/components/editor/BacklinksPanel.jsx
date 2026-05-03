@@ -3,7 +3,7 @@ import React from 'react';
 
 // Simple SVG
 const LinkIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
 );
 
 export default function BacklinksPanel(props) {
@@ -38,20 +38,20 @@ export default function BacklinksPanel(props) {
 
   return (
     <div className="glass-panel-heavy backlinks-panel">
-      <h3 className="glow-text" style={{ fontSize: '18px', display: 'flex', alignItems: 'center', gap: '12px', color: 'white' }}>
+      <h3 className="glow-text" style={{ fontSize: '18px', display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-primary)' }}>
         <LinkIcon />
         Backlinks ({backlinks.length})
       </h3>
       
       {backlinks.length === 0 ? (
         <div style={{ 
-          background: 'rgba(0,0,0,0.2)', 
+          background: 'var(--surface)', 
           padding: '16px', 
           borderRadius: '8px',
-          border: '1px dashed rgba(0, 242, 255, 0.1)',
+          border: '1px dashed var(--border)',
           textAlign: 'center'
         }}>
-          <p style={{ color: '#4a6b8c', fontSize: '14px' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
             No connections yet.
           </p>
         </div>
@@ -73,25 +73,25 @@ export default function BacklinksPanel(props) {
                   animationFillMode: 'both',
                   padding: '12px',
                   borderRadius: '8px',
-                  backgroundColor: 'rgba(15, 15, 25, 0.4)',
-                  border: '1px solid rgba(0, 242, 255, 0.1)',
+                  backgroundColor: 'var(--surface)',
+                  border: '1px solid var(--border)',
                   cursor: 'pointer',
                   fontSize: '14px',
                   transition: 'all 0.3s ease',
                 }}
                 onMouseEnter={function(e) {
-                  e.currentTarget.style.borderColor = 'rgba(0, 242, 255, 0.4)';
-                  e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 242, 255, 0.2)';
+                  e.currentTarget.style.borderColor = 'var(--border-focus)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-glow)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={function(e) {
-                  e.currentTarget.style.borderColor = 'rgba(0, 242, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'var(--border)';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                <strong style={{ color: 'white' }}>{note.title}</strong>
-                <div style={{ color: '#8bb6d9', fontSize: '12px', marginTop: '6px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <strong style={{ color: 'var(--text-primary)' }}>{note.title}</strong>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '12px', marginTop: '6px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {preview}
                 </div>
               </div>

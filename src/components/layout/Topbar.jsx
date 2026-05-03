@@ -3,15 +3,15 @@ import React from 'react';
 import Button from '../ui/Button';
 import ThemeToggle from '../ui/ThemeToggle';
 
-// Simple SVGs
+// Simple SVGs — using CSS variables for theme-awareness
 const MenuIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 );
 const EditIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff0055" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
 );
 const EyeIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
 );
 
 export default function Topbar(props) {
@@ -42,11 +42,11 @@ export default function Topbar(props) {
         
         <div style={{ 
           display: 'flex', 
-          background: 'rgba(0,0,0,0.5)', 
+          background: 'var(--surface)', 
           padding: '2px', 
           borderRadius: '4px',
-          border: '1px solid rgba(0, 242, 255, 0.1)',
-          boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)'
+          border: '1px solid var(--border)',
+          boxShadow: 'var(--shadow-sm)'
         }}>
           <Button 
             variant={editorVariant} 
@@ -89,7 +89,7 @@ export default function Topbar(props) {
             variant="icon" 
             onClick={togglePreview} 
             title={previewMode ? "Switch to Edit" : "Switch to Preview"}
-            style={{ border: '1px solid rgba(0, 242, 255, 0.1)' }}
+            style={{ border: '1px solid var(--border)' }}
           >
             {previewMode ? <EditIcon /> : <EyeIcon />}
           </Button>

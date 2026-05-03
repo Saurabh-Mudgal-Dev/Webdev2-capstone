@@ -6,6 +6,14 @@
 @import './styles/glass.css';
 @import './styles/animations.css';
 
+/* Particles Background — theme-aware */
+.particles-bg {
+  background: radial-gradient(circle at 50% 50%, #050510 0%, #020205 100%);
+}
+:root[data-theme="light"] .particles-bg {
+  background: radial-gradient(circle at 50% 50%, #f8f5ff 0%, #efe8f8 100%);
+}
+
 /* Custom styles for markdown preview */
 .markdown-preview h1,
 .markdown-preview h2,
@@ -14,6 +22,12 @@
   margin-bottom: 0.5em;
   color: var(--text-primary);
   text-shadow: 0 0 8px rgba(255,255,255,0.2);
+}
+
+:root[data-theme="light"] .markdown-preview h1,
+:root[data-theme="light"] .markdown-preview h2,
+:root[data-theme="light"] .markdown-preview h3 {
+  text-shadow: none;
 }
 
 .markdown-preview p {
@@ -53,9 +67,9 @@ body {
 }
 
 .react-flow__edge-path {
-  stroke: #00f2ff !important;
+  stroke: var(--accent) !important;
   stroke-width: 3 !important;
-  filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.5));
+  filter: drop-shadow(0 0 5px var(--accent-glow-strong));
 }
 
 /* Force React Flow transparency */
@@ -124,4 +138,3 @@ body {
   width: 100%;
   font-weight: bold;
 }
-

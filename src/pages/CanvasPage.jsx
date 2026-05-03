@@ -12,7 +12,7 @@ export default function CanvasPage(props) {
         </div>
       </div>
       <div style={{ flex: 1, overflow: 'hidden' }}>
-        <CanvasView notes={props.notes} setActiveNoteId={props.setActiveNoteId} />
+        <CanvasView notes={props.notes} theme={props.theme} setActiveNoteId={props.setActiveNoteId} />
       </div>
     </div>
   );

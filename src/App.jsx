@@ -47,7 +47,7 @@ function App() {
 
   function handleCreateNote() {
     const newNote = {
-      id: crypto.randomUUID(),
+      id: "note-" + Date.now(),
       title: 'Untitled Note',
       content: '# Untitled Note\n\nStart writing here...',
       createdAt: Date.now(),
@@ -60,68 +60,38 @@ function App() {
   }
 
   function handleUpdateNote(id, patch) {
-    const updatedNotes = notes.map(note => {
-      if (note.id === id) {
-        return { ...note, ...patch, updatedAt: Date.now() };
-      }
-      return note;
-    });
-    setNotes(updatedNotes);
+    setNotes(notes.map(note => note.id === id ? { ...note, ...patch, updatedAt: Date.now() } : note));
   }
 
   function handleDeleteNote(id) {
-    const confirmDelete = window.confirm("Are you sure you want to delete this note?");
-    if (confirmDelete) {
+    if (window.confirm("Delete this note?")) {
       const filtered = notes.filter(n => n.id !== id);
       setNotes(filtered);
-      if (activeNoteId === id) {
-        setActiveNoteId(filtered.length > 0 ? filtered[0].id : null);
-      }
+      if (activeNoteId === id) setActiveNoteId(filtered[0]?.id || null);
     }
   }
-
-  function toggleSidebar() {
-    setSidebarOpen(!sidebarOpen);
-  }
-
-  function togglePreview() {
-    setPreviewMode(!previewMode);
-  }
-
-  function toggleTheme() {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  }
-
-  // --- RENDERING ---
-
-  const activeNote = notes.find(n => n.id === activeNoteId) || null;
 
   function renderView() {
-    if (currentView === 'graph') {
-      return <GraphPage notes={notes} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
+    switch (currentView) {
+      case 'graph': return <GraphPage notes={notes} theme={theme} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
+      case 'canvas': return <CanvasPage notes={notes} theme={theme} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
+      case 'flashcards': return <FlashcardsPage notes={notes} theme={theme} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
+      default: return (
+        <EditorPage 
+          activeNote={notes.find(n => n.id === activeNoteId)} 
+          updateNote={handleUpdateNote}
+          previewMode={previewMode}
+          notes={notes}
+          setActiveNoteId={setActiveNoteId}
+        />
+      );
     }
-    if (currentView === 'canvas') {
-      return <CanvasPage notes={notes} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
-    }
-    if (currentView === 'flashcards') {
-      return <FlashcardsPage notes={notes} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
-    }
-    // Default to editor
-    return (
-      <EditorPage 
-        activeNote={activeNote} 
-        updateNote={handleUpdateNote}
-        previewMode={previewMode}
-        notes={notes}
-        setActiveNoteId={setActiveNoteId}
-      />
-    );
   }
 
   return (
     <AppShell
       sidebarOpen={sidebarOpen}
-      toggleSidebar={toggleSidebar}
+      toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
       currentView={currentView}
       setCurrentView={setCurrentView}
       notes={notes}
@@ -130,10 +100,11 @@ function App() {
       handleCreateNote={handleCreateNote}
       handleDeleteNote={handleDeleteNote}
       previewMode={previewMode}
-      togglePreview={togglePreview}
+      togglePreview={() => setPreviewMode(!previewMode)}
       theme={theme}
-      toggleTheme={toggleTheme}
-      activeNoteTitle={activeNote?.title}
+      toggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      activeNoteTitle={notes.find(n => n.id === activeNoteId)?.title}
+      updateNote={handleUpdateNote}
     >
       {renderView()}
     </AppShell>
