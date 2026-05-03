@@ -8,12 +8,12 @@ export default function EditorPage(props) {
   const { activeNote, updateNote, previewMode, notes, setActiveNoteId } = props;
 
   if (!activeNote) {
-    return <div style={{ padding: '24px', color: 'white' }}>Loading...</div>;
+    return <div className="loading-state">Loading...</div>;
   }
 
   return (
     <div className="editor-layout">
-      <div style={{ flex: 1, position: 'relative' }}>
+      <div className="editor-container">
         {previewMode ? (
           <MarkdownPreview content={activeNote.content} />
         ) : (

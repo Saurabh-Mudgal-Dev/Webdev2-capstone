@@ -165,8 +165,8 @@ export default function FlashcardsPage({ notes, setActiveNoteId }) {
       <div 
         style={{ 
           perspective: '1000px', 
-          width: '400px', 
-          height: '250px',
+          width: 'min(400px, 90vw)', 
+          height: 'min(250px, 40vh)',
           cursor: 'pointer'
         }}
         onClick={() => setIsFlipped(!isFlipped)}
