@@ -1,5 +1,6 @@
 // src/components/layout/Topbar.jsx
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../ui/Button';
 import ThemeToggle from '../ui/ThemeToggle';
 
@@ -19,19 +20,21 @@ export default function Topbar(props) {
     toggleSidebar, 
     previewMode, 
     togglePreview, 
-    currentView, 
-    setCurrentView,
     activeNoteTitle 
   } = props;
   
-  const isEditor = currentView === 'editor';
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const currentPath = location.pathname;
+  const isEditor = currentPath === '/';
 
   let titleText = activeNoteTitle || 'CogniVault';
 
-  let editorVariant = isEditor ? 'solid' : 'ghost';
-  let graphVariant = currentView === 'graph' ? 'solid' : 'ghost';
-  let canvasVariant = currentView === 'canvas' ? 'solid' : 'ghost';
-  let flashcardsVariant = currentView === 'flashcards' ? 'solid' : 'ghost';
+  let editorVariant = currentPath === '/' ? 'solid' : 'ghost';
+  let graphVariant = currentPath === '/graph' ? 'solid' : 'ghost';
+  let canvasVariant = currentPath === '/canvas' ? 'solid' : 'ghost';
+  let flashcardsVariant = currentPath === '/flashcards' ? 'solid' : 'ghost';
 
   return (
     <React.Fragment>
@@ -50,28 +53,28 @@ export default function Topbar(props) {
         }}>
           <Button 
             variant={editorVariant} 
-            onClick={() => setCurrentView('editor')} 
+            onClick={() => navigate('/')} 
             style={{ padding: '6px 12px', fontSize: '10px', border: 'none', boxShadow: 'none' }}
           >
             Editor
           </Button>
           <Button 
             variant={graphVariant} 
-            onClick={() => setCurrentView('graph')} 
+            onClick={() => navigate('/graph')} 
             style={{ padding: '6px 12px', fontSize: '10px', border: 'none', boxShadow: 'none' }}
           >
             Graph
           </Button>
           <Button 
             variant={canvasVariant} 
-            onClick={() => setCurrentView('canvas')} 
+            onClick={() => navigate('/canvas')} 
             style={{ padding: '6px 12px', fontSize: '10px', border: 'none', boxShadow: 'none' }}
           >
             Canvas
           </Button>
           <Button 
             variant={flashcardsVariant} 
-            onClick={() => setCurrentView('flashcards')} 
+            onClick={() => navigate('/flashcards')} 
             style={{ padding: '6px 12px', fontSize: '10px', border: 'none', boxShadow: 'none' }}
           >
             Flashcards

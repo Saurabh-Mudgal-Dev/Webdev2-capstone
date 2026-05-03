@@ -1,5 +1,6 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import AppShell from './components/layout/AppShell';
 import EditorPage from './pages/EditorPage';
 import GraphPage from './pages/GraphPage';
@@ -7,6 +8,7 @@ import CanvasPage from './pages/CanvasPage';
 import FlashcardsPage from './pages/FlashcardsPage';
 
 function App() {
+  const navigate = useNavigate();
   // --- STATE ---
   
   // Initialize notes from localStorage
@@ -17,7 +19,6 @@ function App() {
 
   // UI State
   const [activeNoteId, setActiveNoteId] = useState(null);
-  const [currentView, setCurrentView] = useState('editor'); // 'editor', 'graph', 'canvas'
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [previewMode, setPreviewMode] = useState(false);
   const [theme, setTheme] = useState('dark');
@@ -55,7 +56,7 @@ function App() {
     };
     setNotes([newNote, ...notes]);
     setActiveNoteId(newNote.id);
-    setCurrentView('editor');
+    navigate('/');
     return newNote.id;
   }
 
@@ -71,32 +72,18 @@ function App() {
     }
   }
 
-  function renderView() {
-    switch (currentView) {
-      case 'graph': return <GraphPage notes={notes} theme={theme} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
-      case 'canvas': return <CanvasPage notes={notes} theme={theme} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
-      case 'flashcards': return <FlashcardsPage notes={notes} theme={theme} setActiveNoteId={(id) => { setActiveNoteId(id); setCurrentView('editor'); }} />;
-      default: return (
-        <EditorPage 
-          activeNote={notes.find(n => n.id === activeNoteId)} 
-          updateNote={handleUpdateNote}
-          previewMode={previewMode}
-          notes={notes}
-          setActiveNoteId={setActiveNoteId}
-        />
-      );
-    }
-  }
+  const handleSetActiveNote = (id) => {
+    setActiveNoteId(id);
+    navigate('/');
+  };
 
   return (
     <AppShell
       sidebarOpen={sidebarOpen}
       toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-      currentView={currentView}
-      setCurrentView={setCurrentView}
       notes={notes}
       activeNoteId={activeNoteId}
-      setActiveNoteId={setActiveNoteId}
+      setActiveNoteId={handleSetActiveNote}
       handleCreateNote={handleCreateNote}
       handleDeleteNote={handleDeleteNote}
       previewMode={previewMode}
@@ -106,7 +93,20 @@ function App() {
       activeNoteTitle={notes.find(n => n.id === activeNoteId)?.title}
       updateNote={handleUpdateNote}
     >
-      {renderView()}
+      <Routes>
+        <Route path="/" element={
+          <EditorPage 
+            activeNote={notes.find(n => n.id === activeNoteId)} 
+            updateNote={handleUpdateNote}
+            previewMode={previewMode}
+            notes={notes}
+            setActiveNoteId={handleSetActiveNote}
+          />
+        } />
+        <Route path="/graph" element={<GraphPage notes={notes} theme={theme} setActiveNoteId={handleSetActiveNote} />} />
+        <Route path="/canvas" element={<CanvasPage notes={notes} theme={theme} setActiveNoteId={handleSetActiveNote} />} />
+        <Route path="/flashcards" element={<FlashcardsPage notes={notes} theme={theme} setActiveNoteId={handleSetActiveNote} />} />
+      </Routes>
     </AppShell>
   );
 }

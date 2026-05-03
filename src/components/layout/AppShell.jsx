@@ -5,7 +5,7 @@ import Topbar from './Topbar';
 import ParticlesBackground from '../ui/ParticlesBackground';
 
 export default function AppShell({ 
-  sidebarOpen, toggleSidebar, currentView, setCurrentView, notes, 
+  sidebarOpen, toggleSidebar, notes, 
   activeNoteId, setActiveNoteId, handleCreateNote, handleDeleteNote,
   previewMode, togglePreview, theme, toggleTheme, activeNoteTitle, 
   updateNote, children 
@@ -39,14 +39,14 @@ export default function AppShell({
         overflow: 'hidden'
       }}>
         <div style={{ width: '280px' }}>
-          <Sidebar notes={notes} activeNoteId={activeNoteId} setActiveNoteId={setActiveNoteId} handleCreateNote={handleCreateNote} handleDeleteNote={handleDeleteNote} currentView={currentView} setCurrentView={setCurrentView} updateNote={updateNote} />
+          <Sidebar notes={notes} activeNoteId={activeNoteId} setActiveNoteId={setActiveNoteId} handleCreateNote={handleCreateNote} handleDeleteNote={handleDeleteNote} updateNote={updateNote} />
         </div>
       </aside>
       
       {/* Main Content Area */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, position: 'relative', zIndex: 1 }}>
         <header className="glass-panel" style={{ padding: '8px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: '64px', zIndex: 5, borderTop: 'none', borderLeft: 'none', borderRight: 'none' }}>
-          <Topbar toggleSidebar={toggleSidebar} previewMode={previewMode} togglePreview={togglePreview} currentView={currentView} setCurrentView={setCurrentView} theme={theme} toggleTheme={toggleTheme} activeNoteTitle={activeNoteTitle} />
+          <Topbar toggleSidebar={toggleSidebar} previewMode={previewMode} togglePreview={togglePreview} theme={theme} toggleTheme={toggleTheme} activeNoteTitle={activeNoteTitle} />
         </header>
         <div className="animate-fade-in" style={{ flex: 1, overflow: 'hidden', display: 'flex' }}>
           {children}
