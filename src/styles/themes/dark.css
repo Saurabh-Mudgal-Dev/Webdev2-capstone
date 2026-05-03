@@ -1,18 +1,21 @@
 /* src/styles/themes/dark.css */
 :root[data-theme="dark"] {
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --surface: #21262d;
-  --surface-hover: #30363d;
+  /* Reverting to the custom purplish neon palette */
+  --bg-primary: #07020e;
+  --bg-secondary: #0e0516;
   
-  --text-primary: #e6edf3;
-  --text-secondary: #848d97;
-  --text-muted: #484f58;
+  --surface: rgba(20, 8, 32, 0.45);
+  --surface-hover: rgba(40, 12, 60, 0.65);
+  --surface-solid: #100820;
   
-  --border: #30363d;
-  --border-focus: #8b949e;
+  --text-primary: #f0d6ff;
+  --text-secondary: #c084e8;
+  --text-muted: #7a4fa0;
   
-  /* We define RGB versions for glassmorphism */
-  --bg-secondary-rgb: 22, 27, 34;
-  --border-rgb: 48, 54, 61;
+  --border: rgba(255, 45, 155, 0.14);
+  --border-focus: rgba(255, 45, 155, 0.45);
+  
+  /* We define RGB versions for glassmorphism if needed */
+  --bg-secondary-rgb: 14, 5, 22;
+  --border-rgb: 255, 45, 155;
 }

@@ -1,7 +1,6 @@
 // src/components/canvas/NoteCardNode.jsx
 import React from 'react';
-import { Handle, Position } from '@xyflow/react';
-import { renderMarkdown } from '../../utils/markdownRenderer';
+import { renderSimpleMarkdown } from '../../utils/simpleMarkdown';
 
 export default function NoteCardNode({ data }) {
   const previewText =
@@ -20,19 +19,6 @@ export default function NoteCardNode({ data }) {
         border: '1px solid var(--border)',
       }}
     >
-      {/* ✅ TARGET */}
-      <Handle
-        type="target"
-        id="top"
-        position={Position.Top}
-        style={{
-          background: 'var(--accent-secondary)',
-          width: '10px',
-          height: '10px',
-          border: '2px solid var(--bg-primary)',
-        }}
-      />
-
       <h3
         className="glow-text"
         style={{
@@ -54,7 +40,7 @@ export default function NoteCardNode({ data }) {
           pointerEvents: 'none',
         }}
         dangerouslySetInnerHTML={{
-          __html: renderMarkdown(previewText),
+          __html: renderSimpleMarkdown(previewText),
         }}
       />
 
@@ -74,19 +60,6 @@ export default function NoteCardNode({ data }) {
           OPEN
         </button>
       </div>
-
-      {/* ✅ SOURCE */}
-      <Handle
-        type="source"
-        id="bottom"
-        position={Position.Bottom}
-        style={{
-          background: 'var(--accent)',
-          width: '10px',
-          height: '10px',
-          border: '2px solid var(--bg-primary)',
-        }}
-      />
     </div>
   );
 }

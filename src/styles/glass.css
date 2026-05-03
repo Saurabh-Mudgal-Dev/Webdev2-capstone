@@ -21,21 +21,22 @@
 }
 
 .glass-panel-heavy {
-  background: rgba(5, 5, 10, 0.75);
+  /* Using a deep purple tint for the heavy glass */
+  background: rgba(15, 8, 25, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border);
-  border-right: 1px solid rgba(0, 242, 255, 0.1);
+  border-right: 1px solid var(--border-focus);
 }
 
 .glow-text {
   color: var(--accent);
-  text-shadow: 0 0 8px var(--accent-glow), 0 0 15px rgba(0, 242, 255, 0.3);
+  text-shadow: 0 0 8px var(--accent-glow), 0 0 15px var(--accent-glow-strong);
 }
 
 .glow-text-alt {
   color: var(--accent-secondary);
-  text-shadow: 0 0 8px var(--red-glow), 0 0 15px rgba(255, 0, 85, 0.3);
+  text-shadow: 0 0 8px var(--pink-glow), 0 0 15px var(--pink-glow-strong);
 }
 
 .glow-border {
@@ -47,7 +48,7 @@
   box-shadow: 0 0 20px var(--accent-glow);
   border-color: var(--accent);
   transform: translateY(-2px);
-  background: rgba(0, 242, 255, 0.1);
+  background: var(--accent-glow);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -68,5 +69,5 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-secondary);
-  box-shadow: 0 0 10px var(--red-glow);
+  box-shadow: 0 0 10px var(--pink-glow);
 }

@@ -1,9 +1,10 @@
 // src/components/editor/MarkdownPreview.jsx
-import React, { useMemo } from 'react';
-import { renderMarkdown } from '../../utils/markdownRenderer';
+import React from 'react';
+import { renderSimpleMarkdown } from '../../utils/simpleMarkdown';
 
 export default function MarkdownPreview({ content }) {
-  const html = useMemo(() => renderMarkdown(content), [content]);
+  // Beginner style: directly call the renderer in the render cycle
+  const html = renderSimpleMarkdown(content);
 
   return (
     <div

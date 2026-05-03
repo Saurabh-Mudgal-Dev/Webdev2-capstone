@@ -1,24 +1,16 @@
 // src/components/editor/NoteEditor.jsx
 import React, { useEffect, useState } from 'react';
-import { useNotes } from '../../hooks/useNotes';
 
 export default function NoteEditor(props) {
-  const notesContext = useNotes();
-  const updateNote = notesContext.updateNote;
+  const { note, updateNote } = props;
   
-  let initialContent = '';
-  if (props.note) {
-    initialContent = props.note.content;
-  }
-  const [localContent, setLocalContent] = useState(initialContent);
+  const [localContent, setLocalContent] = useState(note ? note.content : '');
 
   useEffect(() => {
-    if (props.note) {
-      setLocalContent(props.note.content);
-    } else {
-      setLocalContent('');
+    if (note) {
+      setLocalContent(note.content);
     }
-  }, [props.note]);
+  }, [note]);
 
   function handleChange(event) {
     const newContent = event.target.value;
@@ -30,8 +22,8 @@ export default function NoteEditor(props) {
       title = lines[0].replace(/^#+\s/, '').trim();
     }
 
-    if (props.note) {
-      updateNote(props.note.id, { content: newContent, title: title });
+    if (note) {
+      updateNote(note.id, { content: newContent, title: title });
     }
   }
 

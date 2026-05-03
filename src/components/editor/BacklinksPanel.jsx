@@ -1,37 +1,45 @@
 // src/components/editor/BacklinksPanel.jsx
 import React from 'react';
-import { Link } from 'lucide-react';
-import { useWikiLinks } from '../../hooks/useWikiLinks';
-import { useNavigate } from 'react-router-dom';
-import { useNotes } from '../../hooks/useNotes';
+
+// Simple SVG
+const LinkIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+);
 
 export default function BacklinksPanel(props) {
-  const wikiLinks = useWikiLinks(props.noteId);
-  const backlinks = wikiLinks.backlinks;
-  
-  const notesContext = useNotes();
-  const setActiveNoteId = notesContext.setActiveNoteId;
-  const navigate = useNavigate();
+  const { noteId, notes, setActiveNoteId } = props;
 
-  function handleLinkClick(id) {
-    setActiveNoteId(id);
-    navigate(`/editor/${id}`);
+  // Find backlinks (beginner style: loop through all notes)
+  const backlinks = [];
+  
+  // Get current note to find its title for matching wikilinks
+  let currentNote = null;
+  for (let i = 0; i < notes.length; i++) {
+    if (notes[i].id === noteId) {
+      currentNote = notes[i];
+      break;
+    }
+  }
+
+  if (currentNote) {
+    const searchTitle = currentNote.title.toLowerCase();
+    for (let i = 0; i < notes.length; i++) {
+      const note = notes[i];
+      // Don't link to itself
+      if (note.id === noteId) continue;
+      
+      // Check if note content contains [[Current Note Title]]
+      if (note.content.toLowerCase().includes(`[[${searchTitle}]]`) || 
+          note.content.toLowerCase().includes(`[[${searchTitle}|`)) {
+        backlinks.push(note);
+      }
+    }
   }
 
   return (
-    <div className="glass-panel-heavy" style={{
-      width: '280px',
-      padding: '24px',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '24px',
-      borderTop: 'none',
-      borderBottom: 'none',
-      borderRight: 'none',
-      zIndex: 5
-    }}>
+    <div className="glass-panel-heavy backlinks-panel">
       <h3 className="glow-text" style={{ fontSize: '18px', display: 'flex', alignItems: 'center', gap: '12px', color: 'white' }}>
-        <Link size={18} color="#00f2ff" />
+        <LinkIcon />
         Backlinks ({backlinks.length})
       </h3>
       
@@ -50,8 +58,6 @@ export default function BacklinksPanel(props) {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {backlinks.map(function(note, index) {
-            
-            // Extract preview text without regex if possible, but keep it simple
             let preview = note.content;
             if (preview.startsWith('# ')) {
                preview = preview.substring(2);
@@ -60,7 +66,7 @@ export default function BacklinksPanel(props) {
             return (
               <div 
                 key={note.id}
-                onClick={function() { handleLinkClick(note.id); }}
+                onClick={() => setActiveNoteId(note.id)}
                 className="animate-slide-in-right"
                 style={{
                   animationDelay: `${index * 0.1}s`,

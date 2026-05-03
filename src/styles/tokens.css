@@ -14,21 +14,20 @@
   --text-secondary: #c084e8;
   --text-muted: #7a4fa0;
 
-  /* ── Pink Neon Palette ── */
-  --accent: #ff2d9b;
-  /* Hot pink primary */
-  --accent-secondary: #bf5fff;
-  /* Electric violet */
-  --accent-tertiary: #ff80d5;
-  /* Soft blush highlight */
-  --accent-hover: #ff6dbf;
-  --accent-glow: rgba(255, 45, 155, 0.22);
-  --accent-glow-strong: rgba(255, 45, 155, 0.55);
-  --violet-glow: rgba(191, 95, 255, 0.28);
-  --violet-glow-strong: rgba(191, 95, 255, 0.55);
+  /* ── Bluish Primary with Pink Tinges ── */
+  --accent: #00f2ff; /* Cyan primary */
+  --accent-secondary: #ff2d9b; /* Hot pink secondary */
+  --accent-tertiary: #bf5fff; /* Violet */
+  
+  --accent-hover: #33f5ff;
+  --accent-glow: rgba(0, 242, 255, 0.22);
+  --accent-glow-strong: rgba(0, 242, 255, 0.55);
+  
+  --pink-glow: rgba(255, 45, 155, 0.22);
+  --pink-glow-strong: rgba(255, 45, 155, 0.55);
 
-  --border: rgba(255, 45, 155, 0.14);
-  --border-focus: rgba(255, 45, 155, 0.45);
+  --border: rgba(255, 45, 155, 0.14); /* Pinkish borders */
+  --border-focus: rgba(0, 242, 255, 0.45); /* Bluish focus */
 
   --error: #ff4060;
   --success: #a0ffcc;

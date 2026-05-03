@@ -1,21 +1,22 @@
 /* src/styles/themes/light.css */
 :root[data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f6f8fa;
-  --surface: #ffffff;
-  --surface-hover: #eaeef2;
+  --bg-primary: #fcfaff;
+  --bg-secondary: #f3f0f7;
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-hover: rgba(240, 230, 250, 0.9);
+  --surface-solid: #ffffff;
   
-  --text-primary: #1f2328;
-  --text-secondary: #656d76;
-  --text-muted: #8c959f;
+  --text-primary: #2d1b4d;
+  --text-secondary: #6b4f9e;
+  --text-muted: #9a84bc;
   
-  --border: #d0d7de;
-  --border-focus: #0969da;
+  --border: rgba(255, 45, 155, 0.2);
+  --border-focus: rgba(255, 45, 155, 0.5);
   
-  --accent: #0969da;
-  --accent-hover: #0349b4;
-  --accent-glow: rgba(9, 105, 218, 0.2);
+  --accent: #ff2d9b;
+  --accent-hover: #ff6dbf;
+  --accent-glow: rgba(255, 45, 155, 0.1);
 
-  --bg-secondary-rgb: 246, 248, 250;
-  --border-rgb: 208, 215, 222;
+  --bg-secondary-rgb: 243, 240, 247;
+  --border-rgb: 255, 45, 155;
 }

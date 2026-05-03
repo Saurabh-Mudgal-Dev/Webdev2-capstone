@@ -10,7 +10,8 @@ export function extractWikilinks(text) {
   
   let match;
   while ((match = regex.exec(text)) !== null) {
-    const linkText = match[1];
+    // If there's a pipe (alias), take only the target part
+    const linkText = match[1].split('|')[0].trim();
     links.push(linkText);
   }
 
